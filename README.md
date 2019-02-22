@@ -65,4 +65,15 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/de
 
 ### `npm run build` fails to minify
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-
+
+### TODO
+1. Show list of todos - Done
+2. Create todos - Done
+3. Delete todo - Done
+4. Clear input after submission - DONE
+5. Edit todo - In Progress
+6. Mark todo as done
+7. Replace api with axios
+8. Add tests for everything. Everything? evarything.
+
