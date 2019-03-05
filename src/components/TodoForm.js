@@ -1,18 +1,11 @@
 import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
-import { connect } from 'react-redux';
-import { compose } from 'redux';
-import uuidv1 from 'uuid/v1';
-import * as actions from '../actions';
 
-class TodoForm extends Component {
+export class TodoForm extends Component {
 
   onSubmit = (formProps) => {
     const { todo } = formProps;
-    const todoId = uuidv1();
-
-    this.props.addTodo(todo, todoId);
-    this.props.handleAddTodo();
+    this.props.handleAddTodo(todo);
   }
 
   render() {
@@ -35,13 +28,4 @@ class TodoForm extends Component {
   }
 }
 
-function mapStateToProps({ todos }) {
-  return {
-    todos
-  }
-}
-
-export default compose(
-  connect(mapStateToProps, actions),
-  reduxForm({'form': 'todo'})
-)(TodoForm);
+export default reduxForm({'form': 'todo'})(TodoForm);

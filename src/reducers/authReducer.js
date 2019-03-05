@@ -13,7 +13,7 @@ export default function(state = INITIAL_STATE, action) {
     case AUTH_USER:
       return {
         ...state,
-        token: action.payload
+        token: 'test123'
       };
     case AUTH_ERROR:
       return {

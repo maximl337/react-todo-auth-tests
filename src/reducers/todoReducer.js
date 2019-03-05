@@ -18,7 +18,7 @@ export default function(state=[], action) {
       const todoInd = state.findIndex(todo => todo.id === action.payload.id);
       return [
         ...state.slice(0, todoInd),
-        {...state[todoInd], body: action.payload.body},
+        {...state[todoInd], ...action.payload},
         ...state.slice(todoInd+1)
       ];
     default:

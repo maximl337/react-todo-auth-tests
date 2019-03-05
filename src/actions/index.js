@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { 
   AUTH_USER, 
   AUTH_ERROR, 
@@ -12,12 +13,14 @@ export const login = (formProps, cb) => {
     // clear auth error
     dispatch(authError(''));
     const { email, password } = formProps;
-    api.login(email, password)
-    .then(resp => {
+    return axios.post('http://58c7004cfff8f21200a7c94b.mockapi.io/api/v1/signin', {
+      email,
+      password
+    }).then(resp => {
       dispatch(authUser(resp.data.token));
     })
     .catch(err => {
-      dispatch(authError(err.data.message));
+      dispatch(authError(err.response.data.message));
     })
     .then(() => cb());
   }
@@ -57,6 +60,7 @@ export const addTodo = (todo, id) => {
     payload: {
       body: todo,
       id,
+      done: false
     }
   };
 }
@@ -68,12 +72,12 @@ export const removeTodo = (todoId) => {
   };
 }
 
-export const editTodo = (todoId, todoBody) => {
+export const editTodo = (todoId, todo) => {
   return {
     type: EDIT_TODO,
     payload: {
       id: todoId,
-      body: todoBody
+      ...todo
     }
   }
 }

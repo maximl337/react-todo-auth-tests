@@ -2,6 +2,7 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import { compose, createStore, applyMiddleware } from 'redux';
 import { routerMiddleware } from 'connected-react-router';
+import { ConnectedRouter } from 'connected-react-router';
 import { createBrowserHistory } from 'history';
 import reduxThunk from 'redux-thunk';
 import reducers from './reducers';
@@ -9,7 +10,8 @@ import logger from './middlewares/logger';
 
 export const history = createBrowserHistory();
 
-const INITIAL_STATE = { auth: { token: localStorage.getItem('token') || 'test123' } };
+const INITIAL_STATE = { auth: { token: localStorage.getItem('token') } };
+
 
 export default ({ children, initialState=INITIAL_STATE }) => {
   
@@ -20,15 +22,16 @@ export default ({ children, initialState=INITIAL_STATE }) => {
     compose(
       applyMiddleware(
         reduxThunk,
-        routerMiddleware(history),
-        logger
+        routerMiddleware(history)
       )
     )
   );
 
   return (
     <Provider store={store}>
-      {children}
+      <ConnectedRouter history={history}>
+        {children}
+      </ConnectedRouter>
     </Provider>
   );
 }

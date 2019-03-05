@@ -5,15 +5,14 @@ class EditTodoForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      todoBody: props.todo.body,
-      todoId: props.todo.id
+      body: props.todo.body,
+      id: props.todo.id
     };
   }
 
-  handleChange = (e) => {
-    e.preventDefault();
+  handleChange = e => {
     this.setState({
-      todoBody: e.target.value
+      body: e.target.value
     });
   }
 
@@ -24,9 +23,9 @@ class EditTodoForm extends Component {
         <input 
           type="text" 
           onChange={this.handleChange} 
-          value={this.state.todoBody} 
+          value={this.state.body}
         />
-        &nbsp;<button onClick={() => handleEditTodo(this.state.todoId, this.state.todoBody)}>Save</button>
+        &nbsp;<button onClick={() => handleEditTodo(this.state.id, this.state)}>Save</button>
       </div>
     );
   }

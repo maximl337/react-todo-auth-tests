@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import uuidv1 from 'uuid/v1';
 import TodoItem from './TodoItem';
 import TodoForm from './TodoForm';
 import * as actions from '../actions';
@@ -25,13 +26,19 @@ class TodoList extends Component {
     this.props.removeTodo(todo.id);
   }
 
-  handleEditTodo = (todoId, todoBody) => {
-    this.props.editTodo(todoId, todoBody);
+  handleEditTodo = (todoId, todo) => {
+    this.props.editTodo(todoId, todo);
+  }
+
+  handleAddTodo = (todo) => {
+    const todoId = uuidv1();
+    this.props.addTodo(todo, todoId);
+    this.toggleAddTodo();
   }
 
   renderShowAddTodoButton = () => {
     if(!this.state.showAddTodo) {
-      return <button onClick={() => this.toggleAddTodo()}>Add new todo</button>;
+      return <button id="show_addtodo_button" onClick={() => this.toggleAddTodo()}>Add new todo</button>;
     }
   }
 
@@ -40,7 +47,7 @@ class TodoList extends Component {
     return (
       <div>
         {this.renderShowAddTodoButton()}
-        {this.state.showAddTodo && <TodoForm handleAddTodo={this.toggleAddTodo} />}
+        {this.state.showAddTodo && <TodoForm handleAddTodo={this.handleAddTodo} />}
         <hr />
         <ul>
           {todos.map((todo, i) => 

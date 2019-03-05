@@ -17,9 +17,16 @@ class TodoItem extends Component {
     })
   }
 
-  handleEditTodo = (todoId, todoBody) => {
-    this.props.onEditTodo(todoId, todoBody);
+  handleEditTodo = (todoId, todo) => {
+    this.props.onEditTodo(todoId, todo);
     this.toggleEditForm();
+  }
+
+  toggleDone = () => {
+    const { id, done } = this.props.todo;
+    this.props.onEditTodo(id, {
+      done: !done
+    });
   }
 
   renderTodoItem = () => {
@@ -29,11 +36,13 @@ class TodoItem extends Component {
       return (
         <div>
           <strong 
-          class={todo.done ? 'done' : ''}
+          className={todo.done ? 'done' : ''}
           >{todoBody}</strong>
-          &nbsp;<button onClick={() => onDelete(todo)}>x</button>
-          &nbsp;<button onClick={() => this.toggleEditForm()}>edit</button>
-          &nbsp;<button>done</button>
+          <button id="delete_button" onClick={() => onDelete(todo)}>x</button>
+          <button id="edit_button" onClick={() => this.toggleEditForm()}>edit</button>
+          <button id="done_button" onClick={() => this.toggleDone()}>
+            {todo.done ? 'undo' : 'Mark as done'}
+          </button>
         </div>
       );
     }
