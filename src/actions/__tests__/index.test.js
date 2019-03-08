@@ -16,66 +16,6 @@ describe('logout action', () => {
   });
 });
 
-describe('login action', () => {
-  const middlewares = [reduxThunk];
-  const mockStore = configureMockStore(middlewares);
-  beforeEach(() => {
-    moxios.install();
-  });
-  afterEach(() => {
-    moxios.uninstall();
-  });
-
-  it('creates AUTH_USER and AUTH_ERROR when login is successful ', () => {
-    moxios.stubRequest('http://58c7004cfff8f21200a7c94b.mockapi.io/api/v1/signin', {
-        status: 200,
-        response: { token: 'test123'}
-      });
-    const expectedActions = [
-      actions.authError(''),
-      actions.authUser('test123')
-    ];
-    const store = mockStore({ auth: { token: '' } });
-
-    const formBody = {
-      email: 'a@a.com',
-      password: 'test123'
-    };
-
-    const cb = () => {};
-
-    return store.dispatch(actions.login(formBody, cb))
-    .then(() => {
-      // return of async actions
-      expect(store.getActions()).toEqual(expectedActions);
-    });
-  }); // EO it
-
-  it('creates AUTH_ERROR when login is successful ', () => {
-    moxios.stubRequest('http://58c7004cfff8f21200a7c94b.mockapi.io/api/v1/signin', {
-        status: 500,
-        response: { message: 'Invalid credentials'}
-      });
-    const expectedActions = [
-      actions.authError(''),
-      actions.authError('Invalid credentials'),
-    ];
-    const store = mockStore({ auth: { token: '' } });
-
-    const formBody = {
-      email: 'a@a.com',
-      password: 'test123'
-    };
-
-    const cb = () => {};
-    return store.dispatch(actions.login(formBody, cb))
-    .then(() => {
-      // return of async actions
-      expect(store.getActions()).toEqual(expectedActions);
-    });
-  }); // EO te
-}); // EO describe
-
 describe('add todo actions', () => {
   it('has the correct type', () => {
     const action = actions.addTodo();

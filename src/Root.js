@@ -6,7 +6,6 @@ import { ConnectedRouter } from 'connected-react-router';
 import { createBrowserHistory } from 'history';
 import reduxThunk from 'redux-thunk';
 import reducers from './reducers';
-import logger from './middlewares/logger';
 
 export const history = createBrowserHistory();
 
